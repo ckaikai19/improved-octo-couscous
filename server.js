@@ -27,13 +27,32 @@ app.get('/', (req, res) => {
 });
 
 
+function createNote(text, allNotes) {
+    const newNote = text;
+
+    text.id = allNotes[0];
+    allNotes[0]++;
+
+    allNotes.push(newNote);
+    fs.writeFileSync(
+        path.join(__dirname, './db/db.json'),
+        JSON.stringify(allNotes, null, 2)
+    );
+
+
+    return newNote;
+}
 
 
 
+app.post('/api/notes', (req, res) => {
+    const newNote = createNote(req.body, notes);
+    res.json(newNote);
+});
 
 
 
 
 app.listen(3001, () => {
-    console.log(`API server now on port ${PORT}!`);
+    console.log(`API server now on port ${3001}!`);
 });

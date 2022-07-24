@@ -54,12 +54,12 @@ const renderActiveNote = () => {
   hide(saveNoteBtn);
 
 
-
   if (activeNote.id) {
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
-    noteText.value = activeNote.text;
+    noteText.value = activeNote.body;
+
   } else {
     noteTitle.removeAttribute('readonly');
     noteText.removeAttribute('readonly');
@@ -123,6 +123,7 @@ const handleRenderSaveBtn = () => {
 // Render the list of note titles
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
+  console.log(jsonNotes)
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
@@ -185,12 +186,5 @@ if (window.location.pathname === '/notes') {
 }
 
 
-// document.querySelectorAll(".list-group-item").forEach(list => {
-//   list.addEventListener('click', ()=>{
-//     console.log('clicked');
-//   });
-// })
-
-console.log(document.querySelectorAll(".list-group-item"))
 
 getAndRenderNotes();

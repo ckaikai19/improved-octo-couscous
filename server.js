@@ -10,12 +10,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
+let db_data = []; 
+
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 
 app.get('/api/notes', (req, res) => {
-    res.json(notes.slice(1));
+    res.json(db_data);
 });
 
 app.get('*', (req, res) => {
@@ -28,19 +30,25 @@ app.get('/', (req, res) => {
 
 
 function createNote(text, allNotes) {
-    const newNote = text;
+    // const newNote = text;
+    // text.id = allNotes[0];
+    // allNotes[0]++;
 
-    text.id = allNotes[0];
-    allNotes[0]++;
+    const newNote = {
+        id: db_data.length,
+        title: text.title,
+        body: text.text
+    }
 
-    allNotes.push(newNote);
+    db_data.push(newNote);
+
     fs.writeFileSync(
         path.join(__dirname, './db/db.json'),
-        JSON.stringify(allNotes, null, 2)
-    );
-
+        JSON.stringify(db_data)
+    )
 
     return newNote;
+
 }
 
 

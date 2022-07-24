@@ -30,10 +30,6 @@ app.get('/', (req, res) => {
 
 
 function createNote(text, allNotes) {
-    // const newNote = text;
-    // text.id = allNotes[0];
-    // allNotes[0]++;
-
     const newNote = {
         id: db_data.length,
         title: text.title,
@@ -48,7 +44,6 @@ function createNote(text, allNotes) {
     )
 
     return newNote;
-
 }
 
 
